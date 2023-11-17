@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Fetch data from Rest Countries API
   fetch("https://restcountries.com/v3.1/all")
     .then((response) => response.json())
     .then((data) => {
-      // Iterate through the countries and create Bootstrap cards
       data.forEach((country) => {
         createCountryCard(country);
       });
@@ -26,7 +24,6 @@ function createCountryCard(country) {
   const cardBody = document.createElement("div");
   cardBody.classList.add("card-body");
 
-  // Display the specified values in the Bootstrap card
   const capital = document.createElement("p");
   capital.textContent = `Capital: ${country.capital[0]}`;
 
@@ -54,7 +51,6 @@ function createCountryCard(country) {
   button.textContent = "Get Weather";
   button.addEventListener("click", () => getWeather(country.capital[0]));
 
-  // Append elements to card body
   cardBody.appendChild(capital);
   cardBody.appendChild(latlng);
   cardBody.appendChild(flagImg);
@@ -71,7 +67,6 @@ function createCountryCard(country) {
 }
 
 function getWeather(city) {
-    // Replace 'YOUR_OPENWEATHERMAP_API_KEY' with your actual API key
     const openWeatherApiKey = "https://openweathermap.org/";
 
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${openWeatherApiKey}`)
@@ -82,11 +77,9 @@ function getWeather(city) {
             return response.json();
         })
         .then(weatherData => {
-            // Extracted relevant weather information
             const temperature = weatherData.main.temp;
             const description = weatherData.weather[0].description;
 
-            // Display the weather information
             alert(`Temperature: ${temperature}K (${(temperature - 273.15).toFixed(2)}°C), Weather: ${description}`);
         })
         .catch(error => console.error('Error fetching weather:', error));
